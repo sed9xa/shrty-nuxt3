@@ -8,7 +8,7 @@
     </section>
     <section class="container mt-10">
       <LinkItem
-      v-for="i in 5"
+        v-for="i in 5"
         :link="{
           shortKey: 'string',
           longUrl: 'https://heroicons.com/',
@@ -34,6 +34,8 @@
   </main>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+definePageMeta({ middleware: "auth" });
+</script>
 
 <style scoped></style>

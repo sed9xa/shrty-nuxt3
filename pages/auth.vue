@@ -18,7 +18,7 @@
             />
           </svg>
         </div>
-        <button class="btn btn-primary py-3 w-full mt-5">
+        <button @click="handleGithubLogin" class="btn btn-primary py-3 w-full mt-5">
           Continue with Github
         </button>
         <hr class="border-white/10 my-8" />
@@ -29,13 +29,13 @@
               placeholder="qwe@yandex.ru"
               type="email"
               name="email"
-              id=""
+              id="email"
             />
           </div>
 
           <div class="form-group">
             <label for="password">Password</label>
-            <input type="password" name="password" id="" />
+            <input type="password" name="password" id="password" />
           </div>
           <button type="submit" class="btn btn-primary py-3 w-full">
             Login
@@ -46,4 +46,13 @@
   </section>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+const supabaseAuth = useSupabaseAuthClient();
+const handleGithubLogin = async () =>{
+  await supabaseAuth.auth.signInWithOAuth({
+    provider: "github",
+  })
+  const user = useSupabaseUser();
+  console.log(user);
+}
+</script>
