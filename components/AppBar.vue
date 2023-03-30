@@ -9,12 +9,24 @@
           <NuxtLink>{{ link.label }}</NuxtLink>
         </li>
         <li><NuxtLink class="btn btn-primary" to="/auth">Sign in</NuxtLink></li>
+        <li>
+          <button @click="signOut" class="btn btn-primary">Sign out</button>
+        </li>
       </ul>
     </nav>
   </div>
 </template>
 
 <script lang="ts" setup>
+const supabaseAuth = useSupabaseAuthClient();
+const signOut = async () => {
+  const { error } = await supabaseAuth.auth.signOut();
+  console.log('Logged out');
+  if (error) {
+    console.error(error);
+  }
+};
+
 const navLinks = ref<
   {
     to: string;

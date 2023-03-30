@@ -4,38 +4,39 @@
       <h1 class="text-2xl font-bold text-white">Dashboard</h1>
     </section>
     <section class="container mt-10">
-      <LinkForm />
+      <LinkForm @onLinkCreated="refresh" />
     </section>
     <section class="container mt-10">
       <LinkItem
-        v-for="i in 5"
+        v-for="link in data"
         :link="{
-          shortKey: 'string',
-          longUrl: 'https://heroicons.com/',
-          id: '1',
+          shortKey: link.key,
+          longUrl: link.long_url,
+          id: link.id,
         }"
       />
-      <LinkItem
-        :link="{
-          shortKey: 'qweqwqwsd',
-          longUrl:
-            'https://www.figma.com/file/daEyVZgvMXVrhdf0KYH5af/shrty?node-id=31-39&t=yRMKMKSH83Auftpn-0',
-          id: '2',
-        }"
-      />
-      <LinkItem
-        :link="{
-          shortKey: 'yjytjrh',
-          longUrl: 'https://mail.yandex.ru/?uid=214526127#tabs/relevant',
-          id: '3',
-        }"
-      />
+
+    
     </section>
   </main>
 </template>
 
 <script setup lang="ts">
+import { Database } from "~~/types/supabase";
 definePageMeta({ middleware: "auth" });
+
+const client = useSupabaseClient<Database>();
+const user = useSupabaseUser();
+
+const { data, refresh } = useAsyncData("links", async () => {
+  const { data, error } = await client
+    .from("links")
+    .select("*")
+    .eq("user_id", user.value?.id);
+
+  return data;
+});
+console.log(data);
 </script>
 
 <style scoped></style>

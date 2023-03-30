@@ -9,9 +9,11 @@
   },
   "devDependencies": {
     "@nuxtjs/supabase": "^0.3.1",
-    "nuxt": "^3.3.1"
+    "nuxt": "^3.3.1",
+    "supabase": "^1.45.3"
   },
   "dependencies": {
-    "@nuxtjs/tailwindcss": "^6.6.4"
+    "@nuxtjs/tailwindcss": "^6.6.4",
+    "nanoid": "^4.0.2"
   }
 }

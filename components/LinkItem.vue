@@ -1,10 +1,13 @@
 <template>
   <div class="card flex items-center justify-between mb-4">
     <div class="link-info">
-      <div class="text-amber-500 font-bold text-2xl">/qwirj1o{{ link.shortKey }}</div>
-      <div class="text-sm text-white/20">https://heroicons.com/{{ link.longUrl }}</div>
+      <div class="text-amber-500 font-bold text-2xl">{{ link.shortKey }}</div>
+      <div class="text-sm text-white/20">
+        {{ link.longUrl.slice(0, 20) + "..." }}
+      </div>
     </div>
     <button
+      @click="handleCopy"
       class="btn-primary w-12 h-12 grid place-content-center rounded-full"
     >
       <svg
@@ -26,13 +29,23 @@
 </template>
 
 <script setup lang="ts">
-defineProps<{
+const config = useRuntimeConfig();
+
+const props = defineProps<{
   link: {
-    shortKey: string,
-    longUrl: string,
-    id: string,
+    shortKey: string;
+    longUrl: string;
+    id: number;
   };
 }>();
+
+const handleCopy = () => {
+  console.log(navigator);
+  navigator.clipboard.writeText(
+    `${config.public.appUrl}/${props.link.shortKey}`
+  );
+  alert("Link copied to clipboard");
+};
 </script>
 
 <style scoped></style>
