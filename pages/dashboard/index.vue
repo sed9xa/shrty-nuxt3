@@ -8,6 +8,7 @@
     </section>
     <section class="container mt-10">
       <LinkItem
+      @onLinkDeleted="refresh"
         v-for="link in data"
         :link="{
           shortKey: link.key,

@@ -36,6 +36,7 @@
 </template>
 
 <script setup lang="ts">
+import { ref, onMounted } from 'vue'
 import { Database } from "~~/types/supabase";
 
 const client = useSupabaseClient<Database>();
@@ -46,6 +47,7 @@ const { data } = await useAsyncData("sliderItem", async () => {
   return data;
 });
 
+
 const addData = async () => {
   const { data, error } = await client.from("sliderItems").insert({
     color: "green",
@@ -55,6 +57,11 @@ const addData = async () => {
     title: "tileeeeeeeee",
   });
 };
+
+onMounted(()=>{
+  
+})
+
 </script>
 
 <style scoped>
